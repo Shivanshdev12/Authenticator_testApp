@@ -7,6 +7,7 @@ const MainNavigation = () => {
   const ctxobj = useContext(AuthContext);
   const logoutHandler = () => {
     ctxobj.removeToken();
+    //optional : redirect
   }
   return (
     <header className={classes.header}>
