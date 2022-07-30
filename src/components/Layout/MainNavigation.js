@@ -1,13 +1,13 @@
 import { useContext } from "react";
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import AuthContext from "../../store/auth-context";
 import classes from './MainNavigation.module.css';
 
 const MainNavigation = () => {
   const ctxobj = useContext(AuthContext);
+  const history = useHistory();
   const logoutHandler = () => {
     ctxobj.removeToken();
-    //optional : redirect
   }
   return (
     <header className={classes.header}>

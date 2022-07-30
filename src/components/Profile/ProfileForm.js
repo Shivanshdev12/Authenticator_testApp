@@ -25,13 +25,13 @@ const ProfileForm = () => {
     });
   }
   return (
-    <form className={classes.form}>
+    <form className={classes.form} onSubmit={changeHandler}>
       <div className={classes.control}>
         <label htmlFor='new-password'>New Password</label>
         <input type='password' id='new-password' minLength="7" ref={newPassword} />
       </div>
       <div className={classes.action}>
-        <button onClick={changeHandler}>Change Password</button>
+        <button>Change Password</button>
       </div>
     </form>
   );
