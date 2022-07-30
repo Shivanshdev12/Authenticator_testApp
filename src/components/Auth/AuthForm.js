@@ -1,5 +1,5 @@
-import { useState, useRef } from 'react';
-
+import { useState, useRef, useContext } from 'react';
+import AuthContext from '../../store/auth-context';
 import classes from './AuthForm.module.css';
 
 const AuthForm = () => {
@@ -7,6 +7,8 @@ const AuthForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const emailInputRef = useRef();
   const passwordRef = useRef();
+
+  const ctxobj = useContext(AuthContext);
 
   const switchAuthModeHandler = () => {
     setIsLogin((prevState) => !prevState);
@@ -39,7 +41,10 @@ const AuthForm = () => {
             window.alert(data.error.message);
           })
         }
-      }).then((data) => console.log(data))
+      }).then((data) => {
+        // console.log(data.idToken);
+        ctxobj.storeToken(data.idToken);
+      })
         .catch((err) => {
           console.log(err);
         })
@@ -59,6 +64,7 @@ const AuthForm = () => {
         setIsLoading(false);
         if (res.ok) {
           //... 
+          return res.json();
         }
         else {
           return res.json().then((data) => {
@@ -85,7 +91,7 @@ const AuthForm = () => {
         </div>
         <div className={classes.actions}>
           {/* {isLoaded ? <button>{isLogin ? 'Login' : 'Create Account'}</button> : <p>Loading...</p>} */}
-          {isLoading == false ? <button>{isLogin ? 'Login' : 'Create Account'}</button> : <p>Loading....</p>}
+          {isLoading === false ? <button>{isLogin ? 'Login' : 'Create Account'}</button> : <p>Loading....</p>}
           <button
             type='button'
             className={classes.toggle}
